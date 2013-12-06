@@ -1,0 +1,40 @@
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @post.name %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @post.text %>
+</p>
+<p>
+	<strong>Expiry_date</strong>
+	<%= @post.expiry_date %>
+</p>
+<h2>Comments</h2>
+
+<% @post.comments.each do |c| %>
+
+<%= c.name %> said:
+<%= time_ago_in_words(c.created_at) %>
+
+<%= c.body %>
+
+<% end %>
+
+<%= form_for [@post, Comment.new] do |f| %>
+
+<%= f.label :name, "Author" %>
+<%= f.text_field :name %>
+<%= f.label :body, "Comment Description" %>
+<%= f.text_area :body %><br><br>
+
+<%= f.submit "Add Comment" %><br>
+
+<% end %>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
